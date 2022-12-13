@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import shortid from "shortid";
+import "./list.css";
 const List = () => {
   const [arr, setArr] = useState(["First", "Second", "Third"]);
   const [value, setValue] = useState("");
+  const [countPressDelete, setCountPressDelete] = useState(0);
+  const [countPressAdd, setCountPressAdd] = useState(0);
 
   const result = arr.map((element, index) => {
     return <p key={shortid.generate()}>{element}</p>;
@@ -10,6 +13,7 @@ const List = () => {
 
   const add = () => {
     setArr([...arr, value]);
+    setCountPressAdd(countPressAdd + 1);
   };
 
   const inputValue = (event) => {
@@ -20,13 +24,14 @@ const List = () => {
   const del = () => {
     arr.pop();
     setArr([...arr]);
+    setCountPressDelete(countPressDelete + 1);
   };
 
   return (
     <div>
       <form>
-        <div> count: {arr.length}</div>
-        {result}
+        <div className="listHeader"> count: {arr.length}</div>
+        <div className="listItem">{result}</div>
       </form>
       <form
         onSubmit={inputValue}
@@ -41,10 +46,10 @@ const List = () => {
           onChange={inputValue}
         />
         <button type="submit" disabled={!value} onClick={() => add()}>
-          Добавить
+          Добавить {countPressAdd !== 0 && "(" + countPressAdd + ")"}
         </button>
         <button type="button" onClick={() => del()}>
-          Убрать
+          Убрать {countPressDelete !== 0 && "(" + countPressDelete + ")"}
         </button>
       </form>
     </div>
