@@ -46,10 +46,10 @@ const List = () => {
           onChange={inputValue}
         />
         <button type="submit" disabled={!value} onClick={() => add()}>
-          Добавить {countPressAdd !== 0 && "(" + countPressAdd + ")"}
+          Добавить
         </button>
-        <button type="button" onClick={() => del()}>
-          Убрать {countPressDelete !== 0 && "(" + countPressDelete + ")"}
+        <button type="button" disabled={arr.length === 0} onClick={() => del()}>
+          Убрать
         </button>
       </form>
     </div>
